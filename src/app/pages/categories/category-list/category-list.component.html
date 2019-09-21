@@ -1,1 +1,49 @@
-<p>category-list works!</p>
+<!-- mb - margin-bottom -->
+<nav class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/">Home</a>            
+        </li>
+        <li class="breadcrumb-item active">
+            Categorias            
+        </li>
+    </ol>
+</nav>
+
+<!--div class="row" cria apenas uma nova linha no bootstrap.
+    O col-md cria o espaço necessário na div para o conteúdo que está dentro dessa classe.
+    O border-left cria uma borda a esquerda, enquanto pl-2 afasta o texto da borda
+    float-right posiciona o button a direita-->
+<div class="row mb-4">
+    <div class="col-md">
+        <h1 class="h2 border-left pl-2">
+            Categorias
+        </h1>
+    </div>
+    <div class="col-md">
+        <a routerLink="new" class="btn btn-success float-right">
+            Nova Categoria
+        </a>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr class="bg-primary text-light">
+            <th>Categorias</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <strong>Lazer</strong><br>
+                <small>Cinema, viagens, praia, etc</small>
+            </td>
+            <td>
+                <a [routerLink]="[12, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+                <button (click)="alert('excluir')" class="btn btn-outline-danger btn-sm">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
