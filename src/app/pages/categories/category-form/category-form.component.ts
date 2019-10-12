@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
-import toastr from "toastr";
+import * as toastr from "toastr";
 
 @Component({
   selector: 'app-category-form',
