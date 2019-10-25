@@ -1,3 +1,4 @@
+import { CategoryService } from './../../categories/shared/category.service';
 import { EntryService } from './../shared/entry.service';
 import { Entry } from './../shared/entry.model';
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
@@ -6,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import * as toastr from "toastr";
+import { Category } from '../../categories/shared/category.model';
 
 @Component({
   selector: 'app-entry-form',
@@ -20,6 +22,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   serverErrorMessages: string[] = null;
   submmitingForm: boolean = false;
   entry: Entry = new Entry();
+  categories: Array<Category>;
 
   imaskConfig = {
     mask: Number,
@@ -48,17 +51,38 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     private entryService: EntryService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {
     this.setCurrentAction();
     this.buildEntryForm();
     this.loadEntry();
+    this.loadCategories();
   }
   
   ngAfterContentChecked(): void {
     this.setPageTitle();
+  }
+
+  get typeOptions(): Array<any> {
+    return Object.entries(Entry.types).map(
+      ([value, text]) => {
+        return {
+          text: text,
+          value: value
+        }
+      }
+    )
+  }
+
+  private loadCategories() {
+    this.categoryService.getAll().subscribe(
+      response => {
+        this.categories = response;
+      }
+    );
   }
 
   public submitForm() {
